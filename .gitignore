@@ -30,3 +30,6 @@ docroot/sites/*/private
 # Ignore SimpleTest multi-site environment.
 docroot/sites/simpletest
 
+*.swp
+*.swo
+
