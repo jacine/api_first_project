@@ -97,7 +97,7 @@ export default class extends Component {
             }), (value) => value !== undefined);
 
 
-            fs.writeFileSync("../App/src/View-Example.js", Markup.up(ViewComponent, context));
+            fs.writeFileSync(`../App/src/View-${this.entityType}-${this.bundle}-${this.viewMode}-Example.js`, Markup.up(ViewComponent, context));
           }
         )
         .catch(console.error);
@@ -109,7 +109,7 @@ export default class extends Component {
 }
 
 if (process.argv.length < 5) {
-  console.error('You need to specify an entity type, bundle and form mode');
+  console.error('You need to specify an entity type, bundle and view mode');
   process.exit(1);
 }
 

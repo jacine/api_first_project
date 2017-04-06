@@ -100,7 +100,7 @@ export default class extends Component {
             });
 
 
-            fs.writeFileSync("../App/src/Form-Example.js", Markup.up(FormComponent, context));
+            fs.writeFileSync(`../App/src/Form-${this.entityType}-${this.bundle}-${this.formMode}-Example.js`, Markup.up(FormComponent, context));
           }
         )
         .catch(console.error);

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
-import Form from './Form-Example';
-import View from './View-Example';
+import Form from './Form-node-simple_article-default-Example';
+import View from './View-node-simple_article-default-Example';
 
 class App extends Component {
   render() {
