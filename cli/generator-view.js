@@ -4,6 +4,7 @@ const Generator = require('yeoman-generator');
 const yeoman = require('yeoman-environment');
 const env = yeoman.createEnv();
 const _ = require('lodash');
+require('dotenv').config();
 
 const viewMapping = require('./view.mapping');
 const Drapi = require('./lib/Drapi');
@@ -39,12 +40,12 @@ class ApiFirstGenerator extends Generator {
       // To access props later use this.props.someOption;
 
       const postData = {
-        client_id: 'f9d83041-3012-4d65-b466-60bd6a48c747',
-        username: 'admin',
-        password: 'test',
+        client_id: process.env.OAUTH_CLIENT_ID,
+        username: process.env.OAUTH_USERNAME,
+        password: process.env.OAUTH_PASSWORD,
+        client_secret: process.env.OAUTH_CLIENT_SECRET,
         grant_type: 'password',
         scope: 'authenticated',
-        client_secret: 'test',
       };
       const hostname = "http://127.0.0.1:8888";
       Drapi.oAuthTokenRequest(hostname, postData)
