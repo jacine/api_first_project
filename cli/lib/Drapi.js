@@ -1,5 +1,8 @@
 const fetch = require('node-fetch');
 
+/**
+ * Value object for a bearer token.
+ */
 class BearerToken {
   constructor(access_token, refresh_token, expires_in) {
     this.accessToken = access_token;
@@ -12,6 +15,9 @@ class BearerToken {
   }
 }
 
+/**
+ * Value object for a entity view display configuration.
+ */
 class EntityViewDisplay {
   constructor(entity_type, bundle, mode, content) {
     this.entityType = entity_type;
@@ -24,9 +30,11 @@ class EntityViewDisplay {
   getComponents() {
     return this.content;
   }
-
 }
 
+/**
+ * Value object for a view display component (formatter).
+ */
 class EntityViewDisplayComponent {
   constructor(type, weight, settings, region) {
     this.type = type;
@@ -36,6 +44,9 @@ class EntityViewDisplayComponent {
   }
 }
 
+/**
+ * Value object for a entity form display configuration.
+ */
 class EntityFormDisplay {
   constructor(entity_type, bundle, mode, content) {
     this.entityType = entity_type;
@@ -50,6 +61,9 @@ class EntityFormDisplay {
   }
 }
 
+/**
+ * Value object for a view form component (formatter).
+ */
 class EntityFormDisplayComponent {
   constructor(type, weight, settings, region) {
     this.type = type;
@@ -60,13 +74,20 @@ class EntityFormDisplayComponent {
 }
 
 /**
- * @param hostname
- * @param entityType
- * @param bundle
- * @param viewMode
- * @param {BearerToken} bearerToken
+ * Fetches a view display and returns a promise.
  *
- * @return {EntityViewDisplay}
+ * @param {string} hostname
+ * @param {string} entityType
+ *   The entity type.
+ * @param {string} bundle
+ *   The bundle.
+ * @param {string} viewMode
+ *   The view mode.
+ * @param {BearerToken} bearerToken
+ *   The bearer token fetched via oAuthTokenRequest.
+ *
+ * @returns {Promise.<EntityViewDisplay>}
+ *   A promise which returns a EntityViewDisplay object.
  */
 function fetchViewDisplay(hostname, entityType, bundle, viewMode, bearerToken) {
   const url = hostname + `/jsonapi/entity_view_display/entity_view_display?filter[targetEntityType][value]=${entityType}&filter[bundle][value]=${bundle}&filter[mode][value]=${viewMode}`;
@@ -93,8 +114,25 @@ function fetchViewDisplay(hostname, entityType, bundle, viewMode, bearerToken) {
     });
 }
 
-function fetchFormDisplay(hostname, entityType, bundle, viewMode, bearerToken) {
-  const url = hostname + `/jsonapi/entity_form_display/entity_form_display?filter[targetEntityType][value]=${entityType}&filter[bundle][value]=${bundle}&filter[mode][value]=${viewMode}`;
+
+/**
+ * Fetches a form display and returns a promise.
+ *
+ * @param {string} hostname
+ * @param {string} entityType
+ *   The entity type.
+ * @param {string} bundle
+ *   The bundle.
+ * @param {string} formMode
+ *   The form mode.
+ * @param {BearerToken} bearerToken
+ *   The bearer token fetched via oAuthTokenRequest.
+ *
+ * @returns {Promise.<EntityFormDisplay>}
+ *   A promise which returns a EntityFormDisplay object.
+ */
+function fetchFormDisplay(hostname, entityType, bundle, formMode, bearerToken) {
+  const url = hostname + `/jsonapi/entity_form_display/entity_form_display?filter[targetEntityType][value]=${entityType}&filter[bundle][value]=${bundle}&filter[mode][value]=${formMode}`;
 
   return fetch(url, {headers: {Authorization: 'Bearer ' + bearerToken.accessToken}})
     .then((response) => {
@@ -117,6 +155,13 @@ function fetchFormDisplay(hostname, entityType, bundle, viewMode, bearerToken) {
     });
 }
 
+/**
+ * Fires up a oauth request and returns 
+ * 
+ * @param hostname
+ * @param postData
+ * @returns {Promise.<BearerToken>}
+ */
 function oAuthTokenRequest(hostname, postData) {
   const url = hostname + '/oauth/token';
   return fetch(url, {
