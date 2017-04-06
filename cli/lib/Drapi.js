@@ -172,6 +172,9 @@ function oAuthTokenRequest(hostname, postData) {
     .then((result) => {
       return result.json();
     })
+    .then((json) => {
+      return BearerToken.create(json);
+    })
     .catch(console.error);
 }
 

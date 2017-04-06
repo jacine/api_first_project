@@ -48,9 +48,7 @@ class ApiFirstGenerator extends Generator {
       };
       const hostname = "http://127.0.0.1:8888";
       Drapi.oAuthTokenRequest(hostname, postData)
-        .then((oauthResult) => {
-            const bearerToken = Drapi.BearerToken.create(oauthResult);
-
+        .then((bearerToken) => {
             return Drapi.fetchFormDisplay(hostname, this.options.entityType, this.options.bundle, this.options.formMode, bearerToken);
           }
         )
