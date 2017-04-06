@@ -1,0 +1,5 @@
+{
+  "boolean": "Components/View/Boolean",
+  "number_integer": "Components/View/NumberInteger",
+  "string": "Components/View/String"
+}

@@ -1,0 +1,6 @@
+{
+  "boolean_checkbox": "Components/Form/BooleanCheckbox",
+  "number": "Components/Form/IntegerTextField",
+  "string_textfield": "Components/Form/StringTextField",
+  "string_textarea": "Components/Form/TextareaField"
+}
